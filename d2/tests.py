@@ -1,7 +1,7 @@
 
 import unittest
 from d2.ac import part1, part2
-from helpers import parse_input
+from utils import parse_input
 
 class AOCTests(unittest.TestCase):
     def test_part1(self):

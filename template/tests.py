@@ -1,7 +1,7 @@
 
 import unittest
-from d2.ac import  part1, part2
-from helpers import parse_input
+from d1.ac import  part1, part2
+from utils import parse_input
 
 DAY = 0
 

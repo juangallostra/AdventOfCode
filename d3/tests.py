@@ -1,7 +1,7 @@
 import unittest
 from d3.ac import part1, part2
 from d3.ac import b2d
-from helpers import parse_input
+from utils import parse_input
 
 DAY = 3
 
