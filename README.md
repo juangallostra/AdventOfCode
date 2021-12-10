@@ -1,7 +1,7 @@
 # Advent Of Code 2021
 My solutions (in Python) to [Advent of Code 2021](https://adventofcode.com/2021) problems.
 
-Each day's solution structure is presented below:
+The structure of each days' solution is presented below:
 
 ```
 d[n]/
@@ -9,13 +9,14 @@ d[n]/
 |_ ac.py
 |_ tests.py
 |_ data/
+     |
      |_ input.txt
      |_ test_input.txt
      |_ test_sol_1.txt
      |_ test_sol_2.txt
 ```
 
-Where the solution to the problem can be found at each days' `ac.py` file.
+Where the solution to the problem can be found in `ac.py`.
 ## Index
 
 * [Day 1](./d1/ac.py)
