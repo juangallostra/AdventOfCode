@@ -24,3 +24,4 @@ Where the solution to the problem can be found in `ac.py`.
 * [Day 3](./d3/ac.py)
 * [Day 4](./d4/ac.py)
 * [Day 5](./d5/ac.py)
+* [Day 6](./d6/ac.py)
