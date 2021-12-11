@@ -20,30 +20,35 @@ def next_day(data, days):
 
 
 def spawned_fishes(fish, days):
-    # build an array of (day, spawns)
+    """
+    Fish are independent, so each of them can be processed separately.
+    This function computes the number of fish that will have spawned after
+    X days from a single fish
+    """
+    # build a dict of {day: spawns}
     bank = {fish: 1}
-    days_to_process = [i for i in bank.keys()]
+    days_to_process = [i for i in bank.keys()] # Days in which spawns are to happen
+    # spawn intervals
     short_spawn = 7
     long_spawn = 9
+    # While there are spawns to process, keep going
     while days_to_process:
-        new_days_to_process = []
         day = days_to_process.pop(0)
-        # Add spawns if spawn day lies inside the range
-        if day < days:
-            try:
-                bank[day + short_spawn] += bank[day]
-            except KeyError:
-                bank[day + short_spawn] = bank[day]
-            new_days_to_process.append(day + short_spawn)
-            try:
-                bank[day + long_spawn] += bank[day]
-            except KeyError:
-                bank[day + long_spawn] = bank[day]
-            new_days_to_process.append(day + long_spawn)
+        new_days_to_process = [] # updated list of pending spawns
+        # Add new spawns
+        try:
+            bank[day + short_spawn] += bank[day]
+        except KeyError:
+            bank[day + short_spawn] = bank[day]
+        try:
+            bank[day + long_spawn] += bank[day]
+        except KeyError:
+            bank[day + long_spawn] = bank[day]
+        new_days_to_process += [day + short_spawn, day + long_spawn]
         days_to_process = set(days_to_process).union(set(new_days_to_process))
-        # Filter out days that are outside the range
-        days_to_process = [day for day in days_to_process if day <= days]
-        # sort by day
+        # Filter out days that are outside the range, no more spawns for those fish
+        days_to_process = [day for day in days_to_process if day < days]
+        # sort so that we process the spawn days in order
         days_to_process = sorted(days_to_process)
     # keep only terminal nodes
     keys_to_keep = [k for k in bank.keys() if k >= days]
