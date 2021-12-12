@@ -19,6 +19,7 @@ def part2(data):
     * from 2 and 5, get all horizontal segments
     * 9 has all horizontal segments, 0 doesn't
     """
+    # TODO: Rework, this is super ugly
     combinations = [(val.split(' | ')[0].split(' '), val.split(' | ')[1].split(' '))  for val in data]
     # deduce numbers from segments:
     total = 0
