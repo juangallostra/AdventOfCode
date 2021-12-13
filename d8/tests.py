@@ -7,6 +7,7 @@ DAY = 8
 
 
 class AOCTests(unittest.TestCase):
+
     def test_part1(self):
         # Given
         input = parse_input(f'd{DAY}/data/test_input.txt')
