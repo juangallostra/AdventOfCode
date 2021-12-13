@@ -22,6 +22,8 @@ def part1(data):
     data = [val.split(' | ')[1].split(' ') for val in data]
     return len([1 for val in data for i in val if len(i) in [2, 3, 4, 7]])
 
+def first(generator):
+    return list(generator)[0]
 
 def part2(data):
     """
@@ -44,46 +46,44 @@ def part2(data):
     for combination in combinations:
         source = combination[0]
         destination = combination[1]
-        number_to_segments = dict()
-        number_to_segments['1'] = [val for val in source if len(val) == 2][0]
-        number_to_segments['4'] = [val for val in source if len(val) == 4][0]
-        number_to_segments['7'] = [val for val in source if len(val) == 3][0]
-        number_to_segments['8'] = [val for val in source if len(val) == 7][0]
+        number_ = dict()
+        number_['1'] = first(filter(lambda x: len(x)==2, source))
+        number_['4'] = first(filter(lambda x: len(x)==4, source))
+        number_['7'] = first(filter(lambda x: len(x)==3, source))
+        number_['8'] = first(filter(lambda x: len(x)==7, source))        
         # get 5 segment combinations:
         seg_5 = [val for val in source if len(val) == 5]
         # check which 5 segment combinations have 4 segments in common with the rest of 5 segment combinations:
-        num_3 = [l for i, l in enumerate(seg_5) if len(
-            l - seg_5[(i+1) % 3]) == 1 and len(l - seg_5[(i+2) % 3]) == 1][0]
-        number_to_segments['3'] = num_3
+        num_3 = first(l for i, l in enumerate(seg_5) if len(
+            l - seg_5[(i+1) % 3]) == 1 and len(l - seg_5[(i+2) % 3]) == 1)
+        number_['3'] = num_3
         # get unique 6 segment combinations:
         seg_6 = [val for val in source if len(val) == 6]
-        num_6 = [l for l in seg_6 if len(
-            l + number_to_segments['1']) > len(l)][0]
-        number_to_segments['6'] = num_6
+        num_6 = first(l for l in seg_6 if len(
+            l + number_['1']) > len(l))
+        number_['6'] = num_6
         # get top right segment:
-        t_r = [a for a in number_to_segments['1']
-               if a not in number_to_segments['6']][0]
+        t_r = number_['1'] - number_['6']
         # 5 and 2
         seg_5_2 = [val for val in source if (
-            len(val) == 5 and len(val + number_to_segments['3']) > 5)]
-        num_5 = [i for i in seg_5_2 if t_r not in i][0]
-        num_2 = [i for i in seg_5_2 if t_r in i][0]
-        number_to_segments['5'] = num_5
-        number_to_segments['2'] = num_2
-        horizontal_seg = SevenSegment(''.join([l for l in number_to_segments['5'].intersect(
-            number_to_segments['2'])]))
+            len(val) == 5 and len(val + number_['3']) > 5)]
+        num_5 = first(i for i in seg_5_2 if t_r not in i)
+        num_2 = first(i for i in seg_5_2 if t_r in i)
+        number_['5'] = num_5
+        number_['2'] = num_2
+        horizontal_seg = number_['5'].intersect(number_['2'])
         # get 0 and 9
         seg_0_9 = [val for val in source if len(
-            val) == 6 and len(val + number_to_segments['6']) > 6] 
-        num_0 = [i for i in seg_0_9 if len(horizontal_seg + i) > len(i)][0]
-        num_9 = [i for i in seg_0_9 if len(horizontal_seg + i) == len(i)][0]
-        number_to_segments['0'] = num_0
-        number_to_segments['9'] = num_9
+            val) == 6 and len(val + number_['6']) > 6] 
+        num_0 = first(i for i in seg_0_9 if len(horizontal_seg + i) > len(i))
+        num_9 = first(i for i in seg_0_9 if len(horizontal_seg + i) == len(i))
+        number_['0'] = num_0
+        number_['9'] = num_9
         # now get 4 digit number
         dest_number = ''
         for number in destination:
-            for key in number_to_segments.keys():
-                if number == number_to_segments[key]:
+            for key in number_.keys():
+                if number == number_[key]:
                     dest_number += key
         total += int(dest_number)
     return total
