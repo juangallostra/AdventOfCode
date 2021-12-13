@@ -3,6 +3,10 @@ from utils import parse_input
 DAY = 8
 
 
+def first(generator):
+    return list(generator)[0]
+
+
 class SevenSegment(str):
     def __new__(cls, segment):
         sorted_segment = ''.join(sorted(segment))
@@ -22,8 +26,6 @@ def part1(data):
     data = [val.split(' | ')[1].split(' ') for val in data]
     return len([1 for val in data for i in val if len(i) in [2, 3, 4, 7]])
 
-def first(generator):
-    return list(generator)[0]
 
 def part2(data):
     """
@@ -47,10 +49,10 @@ def part2(data):
         source = combination[0]
         destination = combination[1]
         number_ = dict()
-        number_['1'] = first(filter(lambda x: len(x)==2, source))
-        number_['4'] = first(filter(lambda x: len(x)==4, source))
-        number_['7'] = first(filter(lambda x: len(x)==3, source))
-        number_['8'] = first(filter(lambda x: len(x)==7, source))        
+        number_['1'] = first(filter(lambda x: len(x) == 2, source))
+        number_['4'] = first(filter(lambda x: len(x) == 4, source))
+        number_['7'] = first(filter(lambda x: len(x) == 3, source))
+        number_['8'] = first(filter(lambda x: len(x) == 7, source))
         # get 5 segment combinations:
         seg_5 = [val for val in source if len(val) == 5]
         # check which 5 segment combinations have 4 segments in common with the rest of 5 segment combinations:
@@ -74,7 +76,7 @@ def part2(data):
         horizontal_seg = number_['5'].intersect(number_['2'])
         # get 0 and 9
         seg_0_9 = [val for val in source if len(
-            val) == 6 and len(val + number_['6']) > 6] 
+            val) == 6 and len(val + number_['6']) > 6]
         num_0 = first(i for i in seg_0_9 if len(horizontal_seg + i) > len(i))
         num_9 = first(i for i in seg_0_9 if len(horizontal_seg + i) == len(i))
         number_['0'] = num_0
