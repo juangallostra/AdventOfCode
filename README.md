@@ -27,3 +27,6 @@ Where the solution to the problem can be found in `ac.py`.
 * [Day 6](./d6/ac.py)
 * [Day 7](./d7/ac.py)
 * [Day 8](./d8/ac.py)
+* [Day 9](./d9/ac.py)
+* [Day 10](./d10/ac.py)
+* [Day 11](./d11/ac.py)
