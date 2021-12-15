@@ -85,7 +85,26 @@ def part1(data):
 
 
 def part2(data):
-    pass
+    data = [[int(i) for i in row] for row in data]
+    all_flashed = False
+    step = 1
+    while not all_flashed:
+        data = update_after_flash(flash_octopus(update_octopus(data)))
+        chain_reaction = True
+        while chain_reaction:
+            # Mark octopus that have already flashed in this step
+            data = [[-1 if i == 0 else i for i in row] for row in data]
+            data = update_after_flash(flash_octopus(data))
+            # Check if new octopus have flashed in the reaction
+            if not 0 in [i for row in data for i in row]:
+                chain_reaction = False
+        data = [[0 if i==-1 else i for i in row] for row in data]
+        if sum(sum(i for i in row) for row in data) == 0:
+            all_flashed = True
+        else:
+            step += 1
+    return step
+
 
 
 def main(input_file):
