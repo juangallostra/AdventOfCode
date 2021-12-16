@@ -12,13 +12,14 @@ def part1(data):
     return sum(abs(i - median) for i in data)
 
 
+def cost(target, data):
+    def abs_d(x): return abs(x-target)
+    return sum(abs_d(x)*abs(x - target + (x-target)/abs_d(x))/2 if abs_d(x) > 1 else 1 for x in data)
+
+
 def part2(data):
     data = sorted([int(i) for i in data[0].split(',')])
-    # cost function
-    def cost(target, data): return sum(abs(x-target)*abs(x - target +
-                                                         (x-target)/abs(x-target))/2 if abs(x-target) > 1 else 1 for x in data)
     mean = sum(data) / len(data)
-    print(mean)
     to_try = [round(mean-1), round(mean), round(mean+1)]
     vals = [cost(x, data) for x in to_try]
     return min(vals)
@@ -26,9 +27,6 @@ def part2(data):
 
 def old_part_2(data):
     data = sorted([int(i) for i in data[0].split(',')])
-    # cost function
-    def cost(target, data): return sum(abs(x-target)*abs(x - target +
-                                                         (x-target)/abs(x-target))/2 if abs(x-target) > 1 else 1 for x in data)
     # bruteforce the solution
     min_v = min(data)
     max_v = max(data)
