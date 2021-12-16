@@ -4,8 +4,44 @@ DAY = 12
 
 # All paths from start to end. Big caves (CAPS) can be visited more than once, small caves only once.
 
+def get_connections(data):
+    """Build a graph of all the connections between the rooms."""
+    connections = dict()
+    for passage in data:
+        start, end = passage.split('-')
+        if start in connections.keys():
+            connections[start].append(end)
+        else:
+            connections[start] = [end]
+        if end in connections.keys():
+            connections[end].append(start)
+        else:
+            connections[end] = [start] 
+    return connections
+
+
 def part1(data):
-    pass
+    current = 'start'
+    target = 'end'
+    connections = get_connections(data)
+    valid_paths = []
+    paths_to_explore = [[current]]
+    while paths_to_explore:
+        # process next path
+        current_path = paths_to_explore.pop(0)
+        # grow path. Get next step candidates
+        candidates = connections[current_path[-1]]
+        # process each candidate room
+        for room in candidates:
+            # valid candidate: CAPS room or unvisited small room. If valid, add to path 
+            if room.isupper() or (room.islower() and room not in current_path):
+                if room == target:
+                    valid_paths.append(current_path + [room])
+                # Add a new path to explore
+                else:
+                    paths_to_explore.append(current_path + [room])
+    return len(valid_paths)
+
 
 
 def part2(data):
