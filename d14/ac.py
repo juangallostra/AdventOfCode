@@ -32,17 +32,17 @@ def part1(data):
        
 
 def part2(data):
-    template, insertions = get_template_and_insertions(data)
-    for i in range(40):
-        print(i)
-        to_be_inserted = []
-        for idx in range(len(template)):
-            if template[idx:idx+2] in insertions.keys():
-                to_be_inserted.append((insertions[template[idx:idx+2]], idx + 1 + len(to_be_inserted)))
-        for item in to_be_inserted:
-            template = template[:item[1]] + item[0] + template[item[1]:]
-    counts = Counter(template)
-    return counts.most_common()[0][1] - counts.most_common()[-1][1]
+    # template, insertions = get_template_and_insertions(data)
+    # for i in range(40):
+    #     print(i)
+    #     to_be_inserted = []
+    #     for idx in range(len(template)):
+    #         if template[idx:idx+2] in insertions.keys():
+    #             to_be_inserted.append((insertions[template[idx:idx+2]], idx + 1 + len(to_be_inserted)))
+    #     for item in to_be_inserted:
+    #         template = template[:item[1]] + item[0] + template[item[1]:]
+    # counts = Counter(template)
+    # return counts.most_common()[0][1] - counts.most_common()[-1][1]
 
 
 
