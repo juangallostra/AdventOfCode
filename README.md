@@ -30,3 +30,6 @@ Where the solution to the problem can be found in `ac.py`.
 * [Day 9](./d9/ac.py)
 * [Day 10](./d10/ac.py)
 * [Day 11](./d11/ac.py)
+* [Day 12](./d12/ac.py)
+* [Day 13](./d13/ac.py) (Part 2 result as an [image](./d13/p2_sol.png))
+  
