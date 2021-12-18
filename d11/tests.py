@@ -1,7 +1,7 @@
 
 import unittest
-from d11.ac import part1, part2, update_octopus, flash_octopus, update_after_flash, pad_data, unpad_data
-from utils import parse_input
+from d11.ac import part1, part2, update_octopus, flash_octopus, update_after_flash
+from utils import parse_input, pad_data, unpad_data
 
 DAY = 11
 

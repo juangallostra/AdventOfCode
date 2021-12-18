@@ -1,4 +1,4 @@
-from utils import parse_input
+from utils import parse_input, pad_data, unpad_data
 
 DAY = 11
 
@@ -10,20 +10,6 @@ DAY = 11
 #   4. Flash octopus
 # 5. Count flashes
 # 6. Repeat from 1
-
-# easier to handle extremes if data is padded
-
-
-def pad_data(data):
-    padded = [[0 for _ in range(len(data[0])+2)]]
-    for row in data:
-        padded.append([0] + row + [0])
-    return padded + [[0 for _ in range(len(data[0])+2)]]
-
-
-def unpad_data(data):
-    return [[i for i in row[1:-1]] for row in data[1:-1]]
-
 
 def update_octopus(data):
     return [[i+1 for i in row] for row in data]
