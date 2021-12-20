@@ -183,7 +183,7 @@ def part2(data):
 def main(input_file):
     data = parse_input(input_file)
     print(f'Part1: {part1(data)}')
-    # print(f'Part2: {part2(data)}')
+    print(f'Part2: {part2(data)}')
 
 
 if __name__ == '__main__':
