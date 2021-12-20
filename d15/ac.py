@@ -70,8 +70,7 @@ class Path():
     def __repr__(self) -> str:
         return f'Path: ({self._node.x}, {self._node.y}), {self.score})'
 
-    # Compare paths based on score
-    # Prioritise paths closer to target
+    # Compare paths based on score and prioritise paths closer to target
     def __lt__(self, other):
         if self.score == other.score:
             return self._x_limit + self._y_limit - self.node.x - self.node.y < other._x_limit + other._y_limit - other.node.x - other.node.y
@@ -100,6 +99,7 @@ class Path():
 
 
 DIRECTIONS = ((1, 0), (0, 1), (-1, 0), (0, -1))
+# P2_DIRECTIONS = ((1,0),(0,1))
 
 
 def part1(data):
@@ -107,7 +107,8 @@ def part1(data):
     init = Node(0, 0, 0)  # initial node
     target = (len(data[0])-1, len(data)-1)  # target coordinates (x,y)
     # candidate paths
-    paths = [Path(init, 0, target[0], target[1])]  # this list has to be kept sorted
+    # this list has to be kept sorted
+    paths = [Path(init, 0, target[0], target[1])]
     # idea is to keep a sorted list of paths, and keep extending the shortest path until the end is reached
     target_reached = False
     shortest_path = None
@@ -142,11 +143,11 @@ def part1(data):
 
 
 def part2(data):
-    # There is a set of optimizations we can do here
-    # Another approach that comes to mind is to keep a track of
-    # which is the smallest score required to reach a node.
-    # We don't actually need to keep track of the path, just the last node
-    # of the path and the smallest score required to reach it. (?)
+    # There is a set of optimizations we can do here. The fact that the map
+    # presents some simmetry can be used in our advantage?
+    # Might it be the case that when we enter a cell it makes no sense to check other cells?
+    # And hence we can discard any path that goes through another cell?
+    # What we hve to achieve is to reduce the state space to explore
     CELLS = 5
     data = [[int(i) for i in row] for row in data]  # map data
     init = Node(0, 0, 0)  # initial node
@@ -154,15 +155,16 @@ def part2(data):
         len(data[0])*CELLS-1, len(data)*CELLS-1
     )  # target coordinates (x,y)
     # candidate paths
-    paths = [Path(init, 0, target[0], target[1])]  # this list has to be kept sorted
+    # this list has to be kept sorted
+    paths = [Path(init, 0, target[0], target[1])]
     # idea is to keep a sorted list of paths, and keep extending the shortest path until the end is reached
     target_reached = False
     shortest_path = None
     visited = []
+
     while not target_reached:
         # deque shortest path
         path = paths.pop(0)
-        print(path)
         # Extend shortest path in 4 directions
         for direction in DIRECTIONS:
             # get next node
@@ -187,15 +189,14 @@ def part2(data):
                 shortest_path = extended_path
                 break
         # sort paths by score
-        # I guess this can be optimised: we can append the path at the correct position
         paths = sorted(paths)
     return shortest_path.score
 
 
 def main(input_file):
     data = parse_input(input_file)
-    # print(f'Part1: {part1(data)}')
-    print(f'Part2: {part2(data)}')
+    print(f'Part1: {part1(data)}')
+    print(f'Part2: {part2(data)}')  # Should be around 3000, 3025 specifically
 
 
 if __name__ == '__main__':
