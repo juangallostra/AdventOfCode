@@ -50,9 +50,11 @@ class Path():
     opposed to the whole path information
     """
 
-    def __init__(self, node, score) -> None:
+    def __init__(self, node, score, x_limit, y_limit) -> None:
         self._node = node
         self._score = score
+        self._y_limit = y_limit
+        self._x_limit = x_limit
 
     @property
     def score(self):
@@ -63,25 +65,34 @@ class Path():
         return self._node
 
     def update_path_endpoint(self, node):
-        return Path(Node(node.x, node.y, node.score), self._score + node.score)
+        return Path(Node(node.x, node.y, node.score), self._score + node.score, self._x_limit, self._y_limit)
 
     def __repr__(self) -> str:
         return f'Path: ({self._node.x}, {self._node.y}), {self.score})'
 
     # Compare paths based on score
+    # Prioritise paths closer to target
     def __lt__(self, other):
+        if self.score == other.score:
+            return self._x_limit + self._y_limit - self.node.x - self.node.y < other._x_limit + other._y_limit - other.node.x - other.node.y
         return self.score < other.score
 
     def __eq__(self, other):
         return self.score == other.score
 
     def __gt__(self, other):
+        if self.score == other.score:
+            return self._x_limit + self._y_limit - self.node.x - self.node.y > other._x_limit + other._y_limit - other.node.x - other.node.y
         return self.score > other.score
 
     def __le__(self, other):
+        if self.score == other.score:
+            return self._x_limit + self._y_limit - self.node.x - self.node.y <= other._x_limit + other._y_limit - other.node.x - other.node.y
         return self.score <= other.score
 
     def __ge__(self, other):
+        if self.score == other.score:
+            return self._x_limit + self._y_limit - self.node.x - self.node.y >= other._x_limit + other._y_limit - other.node.x - other.node.y
         return self.score >= other.score
 
     def __ne__(self, other):
@@ -96,7 +107,7 @@ def part1(data):
     init = Node(0, 0, 0)  # initial node
     target = (len(data[0])-1, len(data)-1)  # target coordinates (x,y)
     # candidate paths
-    paths = [Path(init, 0)]  # this list has to be kept sorted
+    paths = [Path(init, 0, target[0], target[1])]  # this list has to be kept sorted
     # idea is to keep a sorted list of paths, and keep extending the shortest path until the end is reached
     target_reached = False
     shortest_path = None
@@ -143,7 +154,7 @@ def part2(data):
         len(data[0])*CELLS-1, len(data)*CELLS-1
     )  # target coordinates (x,y)
     # candidate paths
-    paths = [Path(init, 0)]  # this list has to be kept sorted
+    paths = [Path(init, 0, target[0], target[1])]  # this list has to be kept sorted
     # idea is to keep a sorted list of paths, and keep extending the shortest path until the end is reached
     target_reached = False
     shortest_path = None
@@ -151,6 +162,7 @@ def part2(data):
     while not target_reached:
         # deque shortest path
         path = paths.pop(0)
+        print(path)
         # Extend shortest path in 4 directions
         for direction in DIRECTIONS:
             # get next node
@@ -182,7 +194,7 @@ def part2(data):
 
 def main(input_file):
     data = parse_input(input_file)
-    print(f'Part1: {part1(data)}')
+    # print(f'Part1: {part1(data)}')
     print(f'Part2: {part2(data)}')
 
 
