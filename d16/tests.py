@@ -1,6 +1,6 @@
 
 import unittest
-from d16.ac import get_all_packet_versions, part1, part2, BITSParser, try_get_subpackets
+from d16.ac import BITSParser, try_get_subpackets, get_all_packet_versions
 from utils import parse_input
 
 DAY = 16
