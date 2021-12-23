@@ -3,8 +3,6 @@ from utils import parse_input
 DAY = 16
 
 # utility functions
-
-
 def hex_to_decimal(hex_str):
     return int(hex_str, 16)
 
@@ -100,6 +98,8 @@ class BITSParser():
 def get_packet_version(packet):
     return binary_to_decimal(packet[0:3])
 
+def get_packet_type_id(packet):
+    return binary_to_decimal(packet[3:6])
 
 def try_get_subpackets(packet, pointer=0):
     type_id = packet[pointer+3:pointer+6]
@@ -113,8 +113,11 @@ def try_get_subpackets(packet, pointer=0):
             return packet[pointer + 7 + 11:]
 
 
-def get_all_packet_versions(packet):
-    to_parse = [packet]
+def decode_message(message):
+    pass
+
+def part1(data):
+    to_parse = [data]
     is_hex = True
     versions = []
     while to_parse:
@@ -126,12 +129,7 @@ def get_all_packet_versions(packet):
             subpackets = try_get_subpackets(packet)
             if subpackets:
                 to_parse.append(subpackets)
-    return versions
-
-
-def part1(data):
-    v = get_all_packet_versions(data[0])
-    return sum(v)
+    return sum(versions)
 
 
 def part2(data):
