@@ -1,6 +1,6 @@
 
 import unittest
-from d16.ac import BITSParser, try_get_subpackets, part1, decode_message
+from d16.ac import BITSParser, part2, try_get_subpackets, part1
 
 DAY = 16
 
@@ -74,13 +74,69 @@ class AOCTests(unittest.TestCase):
         # Then
         self.assertEqual(result, 31)
 
-    # def test_parse_packet_1(self):
-    #     # Given
-    #     packet = 'C200B40A82'
-    #     # When
-    #     result = decode_message(packet)
-    #     # Then
-    #     self.assertEqual(result, 3)
+    def test_parse_packet_1(self):
+        # Given
+        packet = 'C200B40A82'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 3)
+
+    def test_parse_packet_2(self):
+        # Given
+        packet = '04005AC33890'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 54)
+
+    def test_parse_packet_3(self):
+        # Given
+        packet = '880086C3E88112'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 7)
+
+    def test_parse_packet_4(self):
+        # Given
+        packet = 'CE00C43D881120'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 9)
+
+    def test_parse_packet_5(self):
+        # Given
+        packet = 'D8005AC2A8F0'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 1)
+
+    def test_parse_packet_6(self):
+        # Given
+        packet = 'F600BC2D8F'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 0)
+
+    def test_parse_packet_7(self):
+        # Given
+        packet = '9C005AC2F8F0'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 0)
+        
+    def test_parse_packet_8(self):
+        # Given
+        packet = '9C0141080250320F1802104A08'
+        # When
+        result = part2(packet)
+        # Then
+        self.assertEqual(result, 1)
 
 
 if __name__ == '__main__':
