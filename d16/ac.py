@@ -185,8 +185,7 @@ def part2(data):
             else:
                 # print(f'Literal: {packet}')
                 # Literal packet -> process it
-                val = parse_literal_packet(packet)
-                packets.append(val)
+                packets.append(parse_literal_packet(packet))
             stack.append(Packet(type_id, packets, parser.binary))
     # we have our stack, sort it by parent size (the shorter the parent
     # the more nested the packet is) and look for relations
