@@ -72,11 +72,55 @@ def find_x_vels(optimal_x_vel, target):
             keep_checking = False
         else:
             v_init -= 1
-    # keep only best candidate for each vel
-    # vels = set(i[0] for i in candidates)
-    # best_candidates = tuple([tuple([i, max([c[1] for c in candidates if c[0]==i])]) for i in vels]) 
     return candidates
 
+def find_all_x_vels(x_target):
+    target_sorted = sorted(x_target, key = lambda x: abs(x)) # target[0] -> closest to (0,0)
+    x_vels = [] # tuple of (x_vel_init, time_to_reach_target)
+    # max x vel -> t=1 reaches target farthest extreme
+    max_x_vel = (target_sorted[1], 1, False)
+    x_vels.append(max_x_vel)
+    for x_vel in range(max_x_vel[0]): # assume we always move forward!!
+        # see if target is reached and when
+        has_stopped = False
+        pos = [0, 0]
+        vel = [x_vel, 0]
+        t = 0
+        while not has_stopped:
+            pos, vel = update_pos_and_vel(pos, vel)
+            t += 1
+            if x_target[0] <= pos[0] <= x_target[1]:
+                if vel[0] == 0:
+                    x_vels.append((x_vel, t, True))
+                else:
+                    x_vels.append((x_vel, t, False))
+            if vel[0] == 0:
+                has_stopped = True
+    return sorted(x_vels, key=lambda x: x[0])
+
+def find_all_y_vels(y_target):
+    target_sorted = sorted(y_target, key = lambda y: abs(y)) # target[0] -> closest to (0,0)
+    y_vels = [] # tuple of (y_vel_init, time_to_reach_target)
+    # max x vel -> t=1 reaches target farthest extreme
+    min_y_vel = (target_sorted[1], 1) # assume y is always negative
+    y_vels.append(min_y_vel)
+    # for x_vel in range(max_x_vel[0]):
+    #     # see if target is reached and when
+    #     has_stopped = False
+    #     pos = [0, 0]
+    #     vel = [x_vel, 0]
+    #     t = 0
+    #     while not has_stopped:
+    #         pos, vel = update_pos_and_vel(pos, vel)
+    #         t += 1
+    #         if x_target[0] <= pos[0] <= x_target[1]:
+    #             if vel[0] == 0:
+    #                 x_vels.append((x_vel, t, True))
+    #             else:
+    #                 x_vels.append((x_vel, t, False))
+    #         if vel[0] == 0:
+    #             has_stopped = True
+    # return sorted(x_vels, key=lambda x: x[0])
 
 def part1(data):
     # TODO: This solution is overkill and pretty much suboptimal.
@@ -130,6 +174,13 @@ def part1(data):
 
 
 def part2(data):
+    target = get_target(data)
+    # get all y velocities and time to reach target
+    # y_vels = get_all_y_vels(target)
+    x_vels = find_all_x_vels(target[0])
+    print(x_vels)
+    y_vels = find_all_y_vels(target[1])
+    # find which combinations of y and x vels will reach target at the same time
     pass
     # x_accel = -1
     # target = get_target(data)
@@ -147,7 +198,7 @@ def part2(data):
 
 def main(input_file):
     data = parse_input(input_file)
-    print(f'Part1: {part1(data)}')
+    # print(f'Part1: {part1(data)}')
     print(f'Part2: {part2(data)}')
 
 
