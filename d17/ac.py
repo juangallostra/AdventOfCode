@@ -44,29 +44,15 @@ def find_all_x_vels(x_target):
                 has_stopped = True
     return sorted(x_vels, key=lambda x: x[0])
 
-def find_all_y_vels(y_target):
+def find_range_y_vels(y_target):
     target_sorted = sorted(y_target, key = lambda y: abs(y)) # target[0] -> closest to (0,0)
     y_vels = [] # tuple of (y_vel_init, time_to_reach_target)
     # max x vel -> t=1 reaches target farthest extreme
-    min_y_vel = (target_sorted[1], 1) # assume y is always negative
+    min_y_vel = target_sorted[1] # assume y is always negative
+    max_y_vel = (target_sorted[1] + 1) * (-1)
     y_vels.append(min_y_vel)
-    # for x_vel in range(max_x_vel[0]):
-    #     # see if target is reached and when
-    #     has_stopped = False
-    #     pos = [0, 0]
-    #     vel = [x_vel, 0]
-    #     t = 0
-    #     while not has_stopped:
-    #         pos, vel = update_pos_and_vel(pos, vel)
-    #         t += 1
-    #         if x_target[0] <= pos[0] <= x_target[1]:
-    #             if vel[0] == 0:
-    #                 x_vels.append((x_vel, t, True))
-    #             else:
-    #                 x_vels.append((x_vel, t, False))
-    #         if vel[0] == 0:
-    #             has_stopped = True
-    # return sorted(x_vels, key=lambda x: x[0])
+    y_vels.append(max_y_vel)
+    return y_vels
 
 def part1(data):
     target = get_target(data)
@@ -80,13 +66,34 @@ def part1(data):
 def part2(data):
     target = get_target(data)
     # get all y velocities and time to reach target
-    # y_vels = get_all_y_vels(target)
     x_vels = find_all_x_vels(target[0])
-    print(x_vels)
-    y_vels = find_all_y_vels(target[1])
+    y_vels = find_range_y_vels(target[1])
     # find which combinations of y and x vels will reach target at the same time
-    pass
-
+    vel_pairs = []
+    for y_vel in range(y_vels[0], y_vels[1] + 1):
+        # For each y velocity in the range check if there is an 
+        # x velocity that will reach the target at the same time
+        # There are 2 possibilities: equal t or v_x = 0 inside target and ty > tx
+        target_overshot = False
+        pos = [0, 0]
+        vel = [0, y_vel]
+        t = 0
+        while not target_overshot:
+            pos, vel = update_pos_and_vel(pos, vel)
+            t += 1
+            if target[1][0] <= pos[1] <= target[1][1]:
+                # inside target
+                for x_vel, t_x, stopped in x_vels:
+                    # equal time
+                    if (x_vel, y_vel) in vel_pairs:
+                        continue
+                    elif t_x == t:
+                        vel_pairs.append((x_vel, y_vel))
+                    elif stopped and t_x < t:
+                        vel_pairs.append((x_vel, y_vel))
+            elif pos[1] < target[1][0]:
+                target_overshot = True
+    return len(vel_pairs)
 
 
 def main(input_file):
