@@ -105,11 +105,25 @@ def check_magnitude(result):
 
 
 def part1(data):
-    pass
+    data = [eval(i) for i in data]
+    result = data.pop(0)
+    for i in data:
+        result = add_nums(result, i)
+    return check_magnitude(result)
 
 
 def part2(data):
-    pass
+    data = [eval(i) for i in data]
+    max_mag = 0
+    for i in range(len(data)):
+        for j in range(len(data)):
+            # print(i, j)
+            if i == j:
+                continue
+            else:
+                result = add_nums(data[i], data[j])
+                max_mag = max(max_mag, check_magnitude(result))
+    return max_mag
 
 
 def main(input_file):
