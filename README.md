@@ -34,4 +34,7 @@ Where the solution to the problem can be found in `ac.py`.
 * [Day 13](./d13/ac.py) (Part 2 result as an [image](./d13/p2_sol.png))
 * [Day 14](./d14/ac.py)
 * [Day 15](./d15/ac.py)
+* [Day 16](./d16/ac.py)
+* [Day 17](./d17/ac.py)
+* [Day 18](./d18/ac.py)
   
