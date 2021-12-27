@@ -60,7 +60,7 @@ def part1(data):
     # max y' is when at y=0 y'=y_target[1], being y_target[1] the farthest y from (0,0)
     # when this is the case, the y'_initial = (y_target[1] + 1)*(-1)
     max_y_vel = (target[1][0] + 1) * -1
-    return max_y_vel * (max_y_vel + 1)/2
+    return max_y_vel * (max_y_vel + 1)/2 # max height: sum from 0 to max_y_vel
 
 
 def part2(data):
