@@ -1,6 +1,6 @@
 
 import unittest
-from d18.ac import  part1, part2, explode_sn, split_sn
+from d18.ac import  add_nums, check_magnitude, part1, part2, explode_sn, split_sn
 from utils import parse_input
 
 DAY = 18
@@ -45,6 +45,61 @@ class AOCTests(unittest.TestCase):
         self.assertEqual(r1, [[[[0,7],4],[[7,8],[0,13]]],[1,1]])
         self.assertEqual(r2, [[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]])
     
+    def test_addition(self):
+        # given
+        num1 = [[[[4,3],4],4],[7,[[8,4],9]]]
+        num2 = [1,1]
+        num3 = [[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]
+        num4 = [7,[[[3,7],[4,3]],[[6,3],[8,8]]]]
+        num5 = [[2,[[0,8],[3,4]]],[[[6,7],1],[7,[1,6]]]]
+        num6 = [[[[2,4],7],[6,[0,5]]],[[[6,8],[2,8]],[[2,1],[4,5]]]]
+        num7 = [7,[5,[[3,8],[1,4]]]]
+        num8 = [[2,[2,2]],[8,[8,1]]]
+        num9 = [2,9]
+        num10 = [1,[[[9,3],9],[[9,0],[0,7]]]]
+        num11 = [[[5,[7,4]],7],1]
+        num12 = [[[[4,2],2],6],[8,7]]
+        # when
+        r = add_nums(num1, num2)
+        r2 = add_nums(num3, num4)
+        r3 = add_nums(r2, num5)
+        r4 = add_nums(r3, num6)
+        r5 = add_nums(r4, num7)
+        r6 = add_nums(r5, num8)
+        r7 = add_nums(r6, num9)
+        r8 = add_nums(r7, num10)
+        r9 = add_nums(r8, num11)
+        r10 = add_nums(r9, num12)
+        # then
+        self.assertEqual(r, [[[[0,7],4],[[7,8],[6,0]]],[8,1]])
+        self.assertEqual(r2, [[[[4,0],[5,4]],[[7,7],[6,0]]],[[8,[7,7]],[[7,9],[5,0]]]])
+        self.assertEqual(r3, [[[[6,7],[6,7]],[[7,7],[0,7]]],[[[8,7],[7,7]],[[8,8],[8,0]]]])
+        self.assertEqual(r10, [[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]])
+
+    def test_magnitude(self):
+        # given
+        
+        n1 = [[1,2],[[3,4],5]]
+        n2 = [[[[0,7],4],[[7,8],[6,0]]],[8,1]]
+        n3 = [[[[1,1],[2,2]],[3,3]],[4,4]]
+        n4 = [[[[3,0],[5,3]],[4,4]],[5,5]]
+        n5 = [[[[5,0],[7,4]],[5,5]],[6,6]]
+        n6 = [[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]
+        # when
+        r1 = check_magnitude(n1)
+        r2 = check_magnitude(n2)
+        r3 = check_magnitude(n3)
+        r4 = check_magnitude(n4)
+        r5 = check_magnitude(n5)
+        r6 = check_magnitude(n6)
+        # Then
+        self.assertEqual(r1, 143)
+        self.assertEqual(r2, 1384)
+        self.assertEqual(r3, 445)
+        self.assertEqual(r4, 791)
+        self.assertEqual(r5, 1137)
+        self.assertEqual(r6, 3488)
+
 
     # def test_part1(self):
     #     # Given
