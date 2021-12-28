@@ -3,7 +3,6 @@ import math
 
 DAY = 18
 
-
 def flatten(data):
     nums = str(data).replace('[', '').replace(']', '').replace(' ', '')
     return [int(n) for n in nums.split(',')]
@@ -15,6 +14,16 @@ def try_get_number(num):
     except:
         return None
 
+def get_number(data, idx, search_in_reverse=False):
+    num = ''
+    while 0 <= idx < len(data) and data[idx] in '0123456789':
+        if search_in_reverse:
+            num = data[idx] + num
+            idx -= 1
+        else:
+            num += data[idx]
+            idx+=1
+    return int(num), idx+1 if search_in_reverse else idx-1
 
 def explode_sn(data):
     data = str(data).replace(' ', '')
@@ -26,7 +35,7 @@ def explode_sn(data):
         if d == '[':
             open_brackets += 1
             if open_brackets == 5:  # ouuuh explosion
-                end = data[i:].find(']')
+                end = data[i:].find(']') # find first closing bracket
                 explosive = eval(data[i:i+end+1])
                 # replace exploding by 0
                 data = data[0:i] + '0' + data[i+end+1:]
@@ -38,28 +47,20 @@ def explode_sn(data):
                     idx = len(str(last_number[0] + explosive[0]))
                 # get next number
                 for j, p in enumerate(data[i+idx:]):
-                    if try_get_number(data[i+idx+j:i+idx+j+2]) is not None:
+                    if try_get_number(p) is not None:
                         # it could be that the next number has 2 digits
-                        next_number = (try_get_number(
-                            data[i+idx+j:i+idx+j+2]), i+idx+j)
-                        data = data[0:next_number[1]] + \
-                            str(next_number[0] + explosive[1]
-                                ) + data[next_number[1]+2:]
-                        break
-                    elif try_get_number(p) is not None:
-                        # it could be that the next number has 2 digits
-                        next_number = (try_get_number(p), i+idx+j)
-                        data = data[0:next_number[1]] + \
-                            str(next_number[0] + explosive[1]
-                                ) + data[next_number[1]+1:]
+                        next_number, _ = get_number(data, i+idx+j)
+                        data = data[0:i+idx+j] + \
+                            str(next_number + explosive[1]
+                                ) + data[i+idx+j+len(str(next_number)):]
                         break
                 return eval(data)
         elif d == ']':
             open_brackets -= 1
-        elif try_get_number(data[i-1:i+1]) is not None:
-            last_number = (try_get_number(data[i-1:i+1]), i-1)
+        # elif try_get_number(data[i-1:i+1]) is not None:
+        #     last_number = (try_get_number(data[i-1:i+1]), i-1)
         elif try_get_number(d) is not None:
-            last_number = (try_get_number(d), i)
+            last_number = get_number(data, i, search_in_reverse=True)
     return eval(data)
 
 
@@ -117,7 +118,6 @@ def part2(data):
     max_mag = 0
     for i in range(len(data)):
         for j in range(len(data)):
-            # print(i, j)
             if i == j:
                 continue
             else:
