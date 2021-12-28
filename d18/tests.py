@@ -1,6 +1,6 @@
 
 import unittest
-from d18.ac import  add_nums, check_magnitude, part1, part2, explode_sn, split_sn
+from d18.ac import  add_nums, check_magnitude, explode_sn, split_sn, part1, part2
 from utils import parse_input
 
 DAY = 18
@@ -101,23 +101,23 @@ class AOCTests(unittest.TestCase):
         self.assertEqual(r6, 3488)
 
 
-    # def test_part1(self):
-    #     # Given
-    #     input = parse_input(f'd{DAY}/data/test_input.txt')
-    #     expected_sol = parse_input(f'd{DAY}/data/test_sol_1.txt', to_int=True, single_value=True)
-    #     # When
-    #     result = part1(input)
-    #     # Then
-    #     self.assertEqual(expected_sol, result)
+    def test_part1(self):
+        # Given
+        input = parse_input(f'd{DAY}/data/test_input.txt')
+        expected_sol = parse_input(f'd{DAY}/data/test_sol_1.txt', to_int=True, single_value=True)
+        # When
+        result = part1(input)
+        # Then
+        self.assertEqual(expected_sol, result)
 
-    # def test_part2(self):
-    #     # Given
-    #     input = parse_input(f'd{DAY}/data/test_input.txt')
-    #     expected_sol = parse_input(f'd{DAY}/data/test_sol_2.txt', to_int=True, single_value=True)
-    #     # When
-    #     result = part2(input)
-    #     # Then
-    #     self.assertEqual(expected_sol, result)
+    def test_part2(self):
+        # Given
+        input = parse_input(f'd{DAY}/data/test_input.txt')
+        expected_sol = parse_input(f'd{DAY}/data/test_sol_2.txt', to_int=True, single_value=True)
+        # When
+        result = part2(input)
+        # Then
+        self.assertEqual(expected_sol, result)
 
 
 if __name__ == '__main__':
