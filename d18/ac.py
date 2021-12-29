@@ -57,8 +57,6 @@ def explode_sn(data):
                 return eval(data)
         elif d == ']':
             open_brackets -= 1
-        # elif try_get_number(data[i-1:i+1]) is not None:
-        #     last_number = (try_get_number(data[i-1:i+1]), i-1)
         elif try_get_number(d) is not None:
             last_number = get_number(data, i, search_in_reverse=True)
     return eval(data)
