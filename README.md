@@ -1,5 +1,5 @@
-# Advent Of Code 2021
-My solutions (in Python) to [Advent of Code 2021](https://adventofcode.com/2021) problems.
+# Advent Of Code
+My solutions (in Python) to [Advent of Code 2021](https://adventofcode.com/2021) and [Advent of Code 2022](https://adventofcode.com/2022) problems.
 
 The structure of each days' solution is presented below:
 
