@@ -2,13 +2,15 @@ import math
 from utils import parse_input
 
 DAY = 19
+YEAR = 2021
+
 
 class Beacon():
     def __init__(self, x, y, z) -> None:
         self.x = x
         self.y = y
         self.z = z
-    
+
     def distance(self, other):
         return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2 + (self.z - other.z)**2)
 
@@ -18,18 +20,21 @@ class Beacon():
     def __repr__(self) -> str:
         return str(self)
 
+
 class Scanner():
     def __init__(self, scanner_idx, detected_beacons) -> None:
         self.idx = scanner_idx
         self.detected_beacons = detected_beacons
+
 
 def parse_input(data):
     scanners = []
     current_scanner = -1
     beacons = []
     for line in data:
-        if "---" in line: # scanner
-            current_scanner = int(line.replace('---', '').replace('scanner', ''))
+        if "---" in line:  # scanner
+            current_scanner = int(line.replace(
+                '---', '').replace('scanner', ''))
             if current_scanner > 0:
                 scanners.append(Scanner(current_scanner - 1, beacons))
             beacons = []
@@ -39,6 +44,7 @@ def parse_input(data):
                 beacons.append(Beacon(*[int(a) for a in line.split(',')]))
     scanners.append(Scanner(current_scanner, beacons))
     return scanners
+
 
 def part1(data):
     scanners = parse_input(data)
@@ -57,4 +63,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

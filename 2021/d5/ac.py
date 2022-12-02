@@ -2,6 +2,7 @@ from typing import List, Tuple
 from utils import parse_input
 
 DAY = 5
+YEAR = 2021
 
 
 def get_lines(data) -> List[Tuple[Tuple[int, int], Tuple[int, int]]]:
@@ -86,4 +87,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

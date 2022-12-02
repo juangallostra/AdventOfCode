@@ -3,6 +3,7 @@ from collections import Counter
 
 
 DAY = 14
+YEAR = 2021
 
 
 def get_template_and_insertions(data):
@@ -81,4 +82,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

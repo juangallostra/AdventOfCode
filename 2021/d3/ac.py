@@ -1,6 +1,8 @@
 from utils import parse_input
 
 DAY = 3
+YEAR = 2021
+
 
 def b2d(binary_str, exp=0):
     if len(binary_str) == 1:
@@ -45,4 +47,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

@@ -1,6 +1,7 @@
 from utils import parse_input
 
 DAY = 8
+YEAR = 2021
 
 
 def first(generator):
@@ -97,4 +98,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

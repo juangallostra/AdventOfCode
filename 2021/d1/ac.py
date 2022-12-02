@@ -1,4 +1,6 @@
 DAY = 1
+YEAR = 2021
+
 
 def parse_input(input_file):
     with open(input_file) as f:
@@ -11,7 +13,7 @@ def part1(m):
 
 
 def part2(m):
-    window_size=3
+    window_size = 3
     return sum([1 if m[i+window_size] > m[i] else 0 for i in range(len(m)-window_size)])
 
 
@@ -22,4 +24,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

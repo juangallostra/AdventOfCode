@@ -2,6 +2,8 @@ from utils import parse_input
 import math
 
 DAY = 18
+YEAR = 2021
+
 
 def flatten(data):
     nums = str(data).replace('[', '').replace(']', '').replace(' ', '')
@@ -14,6 +16,7 @@ def try_get_number(num):
     except:
         return None
 
+
 def get_number(data, idx, search_in_reverse=False):
     num = ''
     while 0 <= idx < len(data) and data[idx] in '0123456789':
@@ -22,8 +25,9 @@ def get_number(data, idx, search_in_reverse=False):
             idx -= 1
         else:
             num += data[idx]
-            idx+=1
+            idx += 1
     return int(num), idx+1 if search_in_reverse else idx-1
+
 
 def explode_sn(data):
     data = str(data).replace(' ', '')
@@ -35,7 +39,7 @@ def explode_sn(data):
         if d == '[':
             open_brackets += 1
             if open_brackets == 5:  # ouuuh explosion
-                end = data[i:].find(']') # find first closing bracket
+                end = data[i:].find(']')  # find first closing bracket
                 explosive = eval(data[i:i+end+1])
                 # replace exploding by 0
                 data = data[0:i] + '0' + data[i+end+1:]
@@ -131,4 +135,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

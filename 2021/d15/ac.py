@@ -1,6 +1,7 @@
 from utils import parse_input
 
 DAY = 15
+YEAR = 2021
 
 
 def add_node_to_path(path, coord):
@@ -200,4 +201,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

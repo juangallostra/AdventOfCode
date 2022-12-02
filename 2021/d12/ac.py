@@ -2,12 +2,14 @@ from utils import parse_input
 from collections import Counter
 
 DAY = 12
+YEAR = 2021
 
 # Part 1
 # All paths from start to end. Big caves (CAPS) can be visited more than once, small caves only once.
 
 # Part 2
 # a single small cave (different from start and end) can be visited twice.
+
 
 def get_connections(data):
     """Build a graph of all the connections between the rooms."""
@@ -24,9 +26,11 @@ def get_connections(data):
             connections[end] = [start]
     return connections
 
+
 def already_duplicate_small_room(path):
     counts = Counter(path)
     return any(counts[k] > 1 for k in [k for k in counts.keys() if (k.islower() and k not in ['start', 'end'])])
+
 
 def part1(data):
     current = 'start'
@@ -47,7 +51,7 @@ def part1(data):
                     valid_paths.append(current_path + [room])
                 # Add a new path to explore
                 else:
-                    paths_to_explore.append(current_path + [room]) 
+                    paths_to_explore.append(current_path + [room])
     return len(valid_paths)
 
 
@@ -81,4 +85,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

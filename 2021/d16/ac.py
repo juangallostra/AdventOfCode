@@ -1,6 +1,7 @@
 from utils import parse_input
 
 DAY = 16
+YEAR = 2021
 
 # utility functions
 
@@ -221,6 +222,7 @@ def compute_value(packet):
     elif packet.type_id == 7:
         return 1 if compute_value(packet.data[1]) == compute_value(packet.data[2]) else 0
 
+
 def main(input_file):
     data = parse_input(input_file)
     print(f'Part1: {part1(data[0])}')
@@ -228,4 +230,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

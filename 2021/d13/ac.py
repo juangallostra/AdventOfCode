@@ -3,6 +3,7 @@ from utils import data_as_matrix_str
 
 
 DAY = 13
+YEAR = 2021
 
 
 def split_input(data):
@@ -72,4 +73,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

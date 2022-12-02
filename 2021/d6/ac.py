@@ -1,6 +1,7 @@
 from utils import parse_input
 
 DAY = 6
+YEAR = 2021
 
 
 def parse_data(data):
@@ -27,14 +28,15 @@ def spawned_fishes(fish, days):
     """
     # build a dict of {day: spawns}
     bank = {fish: 1}
-    days_to_process = [i for i in bank.keys()] # Days in which spawns are to happen
+    # Days in which spawns are to happen
+    days_to_process = [i for i in bank.keys()]
     # spawn intervals
     short_spawn = 7
     long_spawn = 9
     # While there are spawns to process, keep going
     while days_to_process:
         day = days_to_process.pop(0)
-        new_days_to_process = [] # updated list of pending spawns
+        new_days_to_process = []  # updated list of pending spawns
         # Add new spawns
         try:
             bank[day + short_spawn] += bank[day]
@@ -55,7 +57,6 @@ def spawned_fishes(fish, days):
     return sum([bank[k] for k in keys_to_keep])
 
 
-
 def part1(data):
     data = parse_data(data)
     return len(next_day(data, 80))
@@ -63,7 +64,7 @@ def part1(data):
 
 def part2(data):
     # Idea -> keep track of how many fish spawn each day
-    data = parse_data(data)    
+    data = parse_data(data)
     total = 0
     for fish in data:
         total += spawned_fishes(fish, 256)
@@ -77,4 +78,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

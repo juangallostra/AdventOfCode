@@ -1,6 +1,7 @@
 from utils import parse_input, pad_data, unpad_data
 
 DAY = 11
+YEAR = 2021
 
 # Process:
 # 1. Update energy levels
@@ -10,6 +11,7 @@ DAY = 11
 #   4. Flash octopus
 # 5. Count flashes
 # 6. Repeat from 1
+
 
 def update_octopus(data):
     return [[i+1 for i in row] for row in data]
@@ -66,7 +68,7 @@ def part1(data):
                 chain_reaction = False
         # Update num of flashes
         total_flashes += count_flashes(data)
-        data = [[0 if i==-1 else i for i in row] for row in data]
+        data = [[0 if i == -1 else i for i in row] for row in data]
     return total_flashes
 
 
@@ -84,13 +86,12 @@ def part2(data):
             # Check if new octopus have flashed in the reaction
             if not 0 in [i for row in data for i in row]:
                 chain_reaction = False
-        data = [[0 if i==-1 else i for i in row] for row in data]
+        data = [[0 if i == -1 else i for i in row] for row in data]
         if sum(sum(i for i in row) for row in data) == 0:
             all_flashed = True
         else:
             step += 1
     return step
-
 
 
 def main(input_file):
@@ -100,4 +101,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

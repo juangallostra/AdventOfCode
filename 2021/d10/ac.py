@@ -1,12 +1,15 @@
 from utils import parse_input
 
 DAY = 10
+YEAR = 2021
+
 
 def remove_match(matches, data):
     for match in matches:
         if match in data:
             return remove_match(matches, data.replace(match, ''))
     return data
+
 
 SCORES_CORRUPTED = {
     ')': 3, ']': 57, '}': 1197, '>': 25137
@@ -17,6 +20,8 @@ SCORES_COMPLETION = {
 }
 
 MATCHES = ['<>', '{}', '()', '[]']
+
+
 def part1(data):
     total = 0
     for line in data:
@@ -26,8 +31,8 @@ def part1(data):
             if c in SCORES_CORRUPTED.keys():
                 total += SCORES_CORRUPTED[c]
                 break
-    return total                
-          
+    return total
+
 
 def part2(data):
     scores = []
@@ -37,10 +42,10 @@ def part2(data):
         corrupted = any(c in processed for c in SCORES_CORRUPTED.keys())
         if not corrupted:
             score = 0
-            for c in processed[::-1]: # reverse since we are closing
+            for c in processed[::-1]:  # reverse since we are closing
                 score = score*5 + SCORES_COMPLETION[c]
             scores.append(score)
-    return sorted(scores)[len(scores)//2]   
+    return sorted(scores)[len(scores)//2]
 
 
 def main(input_file):
@@ -50,4 +55,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')

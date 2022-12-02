@@ -1,5 +1,6 @@
 from utils import parse_input
 
+
 def part1(commands):
     # measurements = parse_input(m)
     # split by action
@@ -25,6 +26,7 @@ def part2(commands):
             aim += sign[action] * value
     return d * f
 
+
 def main(input_file):
     measurements = parse_input(input_file)
     print(part1(measurements))
@@ -32,4 +34,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main('d2/data/input.txt')
+    main('2021/d2/data/input.txt')

@@ -1,11 +1,12 @@
 from utils import parse_input
-import math
 
 DAY = 17
+YEAR = 2021
+
 
 def get_target(data):
-    targets =  data[0].split(': ')[1].split(', ')
-    target_x = [int(x) for x in targets[0].split('=')[1].split('..')] 
+    targets = data[0].split(': ')[1].split(', ')
+    target_x = [int(x) for x in targets[0].split('=')[1].split('..')]
     target_y = [int(y) for y in targets[1].split('=')[1].split('..')]
     return (sorted(target_x), sorted(target_y))
 
@@ -20,13 +21,15 @@ def update_pos_and_vel(pos, vel):
     # print(f'Pos: {pos}, Vel: {vel}')
     return pos, vel
 
+
 def find_all_x_vels(x_target):
-    target_sorted = sorted(x_target, key = lambda x: abs(x)) # target[0] -> closest to (0,0)
-    x_vels = [] # tuple of (x_vel_init, time_to_reach_target)
+    # target[0] -> closest to (0,0)
+    target_sorted = sorted(x_target, key=lambda x: abs(x))
+    x_vels = []  # tuple of (x_vel_init, time_to_reach_target)
     # max x vel -> t=1 reaches target farthest extreme
     max_x_vel = (target_sorted[1], 1, False)
     x_vels.append(max_x_vel)
-    for x_vel in range(max_x_vel[0]): # assume we always move forward!!
+    for x_vel in range(max_x_vel[0]):  # assume we always move forward!!
         # see if target is reached and when
         has_stopped = False
         pos = [0, 0]
@@ -44,15 +47,18 @@ def find_all_x_vels(x_target):
                 has_stopped = True
     return sorted(x_vels, key=lambda x: x[0])
 
+
 def find_range_y_vels(y_target):
-    target_sorted = sorted(y_target, key = lambda y: abs(y)) # target[0] -> closest to (0,0)
-    y_vels = [] # tuple of (y_vel_init, time_to_reach_target)
+    # target[0] -> closest to (0,0)
+    target_sorted = sorted(y_target, key=lambda y: abs(y))
+    y_vels = []  # tuple of (y_vel_init, time_to_reach_target)
     # max x vel -> t=1 reaches target farthest extreme
-    min_y_vel = target_sorted[1] # assume y is always negative
+    min_y_vel = target_sorted[1]  # assume y is always negative
     max_y_vel = (target_sorted[1] + 1) * (-1)
     y_vels.append(min_y_vel)
     y_vels.append(max_y_vel)
     return y_vels
+
 
 def part1(data):
     target = get_target(data)
@@ -60,7 +66,7 @@ def part1(data):
     # max y' is when at y=0 y'=y_target[1], being y_target[1] the farthest y from (0,0)
     # when this is the case, the y'_initial = (y_target[1] + 1)*(-1)
     max_y_vel = (target[1][0] + 1) * -1
-    return max_y_vel * (max_y_vel + 1)/2 # max height: sum from 0 to max_y_vel
+    return max_y_vel * (max_y_vel + 1)/2  # max height: sum from 0 to max_y_vel
 
 
 def part2(data):
@@ -71,7 +77,7 @@ def part2(data):
     # find which combinations of y and x vels will reach target at the same time
     vel_pairs = []
     for y_vel in range(y_vels[0], y_vels[1] + 1):
-        # For each y velocity in the range check if there is an 
+        # For each y velocity in the range check if there is an
         # x velocity that will reach the target at the same time
         # There are 2 possibilities: equal t or v_x = 0 inside target and ty > tx
         target_overshot = False
@@ -103,4 +109,4 @@ def main(input_file):
 
 
 if __name__ == '__main__':
-    main(f'd{DAY}/data/input.txt')
+    main(f'{YEAR}/d{DAY}/data/input.txt')
