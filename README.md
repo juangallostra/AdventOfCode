@@ -44,4 +44,7 @@ Where the solution to the problem can be found in `ac.py`.
 * [Day 16](./2021/d16/ac.py)
 * [Day 17](./2021/d17/ac.py)
 * [Day 18](./2021/d18/ac.py)
-  
+
+#### 2022
+
+* [Day 1](./2022/d1/ac.py)
