@@ -18,6 +18,7 @@ def parse_input(input_file):
 def part1(m):
     return max(sum(vals) for vals in m)
 
+
 def part2(m):
     return sum(sorted([sum(vals) for vals in m], reverse=True)[:3])
 
