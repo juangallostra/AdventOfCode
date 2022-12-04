@@ -3,12 +3,6 @@ DAY = 3
 YEAR = 2022
 
 
-def get_priorities():
-    return {
-        chr(i): i-96 for i in range(97, 97+26)
-    } | {chr(i): i-38 for i in range(65, 65+26)}
-
-
 def parse_input(input_file, to_int=False, single_value=False):
     with open(input_file) as f:
         measurements = [l.strip() for l in f.readlines()]
@@ -17,6 +11,12 @@ def parse_input(input_file, to_int=False, single_value=False):
         if single_value:
             return measurements[0]
     return measurements
+
+
+def get_priorities():
+    return {
+        chr(i): i-96 for i in range(97, 97+26)
+    } | {chr(i): i-38 for i in range(65, 65+26)}
 
 
 def part1(data):
