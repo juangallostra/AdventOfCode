@@ -13,7 +13,6 @@ def parse_input(input_file, to_int=False, single_value=False):
     return measurements
 
 
-
 def part1(data):
     stream = data[0]
     MARKER_LENGTH = 4
@@ -21,12 +20,14 @@ def part1(data):
         if len(set(stream[idx:idx+MARKER_LENGTH])) == MARKER_LENGTH:
             return idx + MARKER_LENGTH
 
+
 def part2(data):
     stream = data[0]
     MARKER_LENGTH = 14
     for idx in range(len(stream)-MARKER_LENGTH):
         if len(set(stream[idx:idx+MARKER_LENGTH])) == MARKER_LENGTH:
             return idx + MARKER_LENGTH
+
 
 def main(input_file):
     data = parse_input(input_file)
