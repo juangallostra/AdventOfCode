@@ -52,3 +52,4 @@ Where the solution to the problem can be found in `ac.py`.
 - [Day 3](./2022/d3/ac.py)
 - [Day 4](./2022/d4/ac.py)
 - [Day 5](./2022/d5/ac.py)
+- [Day 6](./2022/d6/ac.py)
