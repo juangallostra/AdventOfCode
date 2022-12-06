@@ -16,6 +16,9 @@ def parse_input(input_file, to_int=False, single_value=False):
 def part1(data):
     stream = data[0]
     MARKER_LENGTH = 4
+    # Uops python sets come in handy here
+    # If I was to avoid them, I would retrieve the appropiate slice and count occurrences.
+    # If a repeated character is found, move on
     for idx in range(len(stream)-MARKER_LENGTH):
         if len(set(stream[idx:idx+MARKER_LENGTH])) == MARKER_LENGTH:
             return idx + MARKER_LENGTH
