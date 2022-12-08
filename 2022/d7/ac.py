@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import List, Union
 
 
@@ -14,20 +15,19 @@ def parse_input(input_file, to_int=False, single_value=False):
             return measurements[0]
     return measurements
 
-# build simple tree hierarchy
 
-
-class Node():
-    def __init__(self, name, parent, children, size):
-        self.name: str = name
-        self.parent: Union[Node, None] = parent  # Node or None
-        self.children: Union[List[Node], None] = children
-        self.size: Union[int, None] = size
+@dataclass
+class Node:
+    name: str
+    size: Union[int, None]
+    parent: ...  # Node or None
+    children: ...
 
     def draw(self, indentation_level=0) -> str:
         if self.children:
             return '  ' * indentation_level + f'{self.name} - {self.size}\n' + '\n'.join([c.draw(indentation_level+1) for c in self.children])
         return '  ' * indentation_level + f'{self.name} - {self.size}'
+
 
 def build_tree(data):
     clean_data: List[str] = [d for d in data if d !=
@@ -57,6 +57,7 @@ def build_tree(data):
                 up_push = up_push.parent
     return tree
 
+
 def part1(data):
     tree = build_tree(data)
     # print(tree.draw())
@@ -67,18 +68,19 @@ def part1(data):
     while to_visit:
         # visit node
         current_node = to_visit.pop()
-        if current_node.children is not None: # ignore files
+        if current_node.children is not None:  # ignore files
             if current_node.size <= 100_000:
-                dir_sum += current_node.size # add size and forget
+                dir_sum += current_node.size  # add size and forget
             if current_node.children:
-                to_visit += [c for c in current_node.children if c.children is not None] # update nodes to visit
-    
+                # update nodes to visit
+                to_visit += [c for c in current_node.children if c.children is not None]
+
     return dir_sum
 
 
 def part2(data):
     tree = build_tree(data)
-    free = 70_000_000 - tree.size 
+    free = 70_000_000 - tree.size
     required = 30_000_000 - free
     # find smallest dir such that, if deleted
     to_visit = [tree]
@@ -87,14 +89,14 @@ def part2(data):
     while to_visit:
         # visit node
         current_node = to_visit.pop()
-        if current_node.children is not None: # ignore files
+        if current_node.children is not None:  # ignore files
             if current_node.size >= required and (dir_size is None or current_node.size <= dir_size):
                 dir_size = current_node.size
             if current_node.children:
-                to_visit += [c for c in current_node.children if c.children is not None] # update nodes to visit
-    
-    return dir_size
+                # update nodes to visit
+                to_visit += [c for c in current_node.children if c.children is not None]
 
+    return dir_size
 
 
 def main(input_file):
