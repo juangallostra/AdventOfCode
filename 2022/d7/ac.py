@@ -89,7 +89,7 @@ def part2(data):
         if current_node.children is not None:  # ignore files
             if current_node.size >= required and (dir_size is None or current_node.size <= dir_size):
                 dir_size = current_node.size
-            if current_node.children: # update nodes to visit
+            if current_node.children:  # update nodes to visit
                 to_visit += [c for c in current_node.children]
 
     return dir_size
