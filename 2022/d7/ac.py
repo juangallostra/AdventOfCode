@@ -6,7 +6,7 @@ DAY = 7
 YEAR = 2022
 
 
-def parse_input(input_file, to_int=False, single_value=False):
+def parse_input(input_file, to_int=False, single_value=False) -> Union[List[int], List[str]]:
     with open(input_file) as f:
         measurements = [l.strip() for l in f.readlines()]
         if to_int:
@@ -16,12 +16,12 @@ def parse_input(input_file, to_int=False, single_value=False):
     return measurements
 
 
-@dataclass
-class Node:
-    name: str
-    size: Union[int, None]
-    parent: ...  # Node or None
-    children: ...
+class Node():
+    def __init__(self, name, parent, children, size) -> None:
+        self.name: str = name
+        self.size: Union[int, None] = size
+        self.parent: Union[Node, None] = parent  # Node or None
+        self.children: Union[List[Node], None] = children
 
     def draw(self, indentation_level=0) -> str:
         if self.children:
@@ -29,7 +29,7 @@ class Node:
         return '  ' * indentation_level + f'{self.name} - {self.size}'
 
 
-def build_tree(data):
+def build_tree(data) -> Union[Node, None]:
     clean_data: List[str] = [d for d in data if d !=
                              '$ ls' and 'dir' not in d]  # remove unnecessary lines
     # build tree
@@ -58,7 +58,7 @@ def build_tree(data):
     return tree
 
 
-def part1(data):
+def part1(data) -> int:
     tree = build_tree(data)
     to_visit = [tree]
     dir_sum = 0
@@ -75,7 +75,7 @@ def part1(data):
     return dir_sum
 
 
-def part2(data):
+def part2(data) -> int:
     tree = build_tree(data)
     free = 70_000_000 - tree.size
     required = 30_000_000 - free
@@ -95,7 +95,7 @@ def part2(data):
     return dir_size
 
 
-def main(input_file):
+def main(input_file) -> None:
     data = parse_input(input_file)
     print(f'Part1: {part1(data)}')
     print(f'Part2: {part2(data)}')
