@@ -1,9 +1,23 @@
-from utils import parse_input
-from utils import data_as_matrix_str
+# from utils import parse_input
+# from utils import data_as_matrix_str
 
 
 DAY = 13
 YEAR = 2021
+
+
+def parse_input(input_file, to_int=False, single_value=False):
+    with open(input_file) as f:
+        measurements = [l.strip() for l in f.readlines()]
+        if to_int:
+            measurements = [int(m) for m in measurements]
+        if single_value:
+            return measurements[0]
+    return measurements
+
+
+def data_as_matrix_str(data):
+    return '\n'.join(''.join(str(i) for i in l) for l in data)
 
 
 def split_input(data):
@@ -26,8 +40,8 @@ def split_input(data):
 
 
 def build_matrix(dots):
-    max_x = max(x for x, _ in dots)
-    max_y = max(y for _, y in dots)
+    max_x = 655 * 2  # at least this size
+    max_y = 447 * 2
     return [[0 if (x, y) not in dots else 1 for x in range(max_x+1)] for y in range(max_y+1)]
 
 

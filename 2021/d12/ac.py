@@ -1,8 +1,19 @@
-from utils import parse_input
+# from utils import parse_input
 from collections import Counter
 
 DAY = 12
 YEAR = 2021
+
+
+def parse_input(input_file, to_int=False, single_value=False):
+    with open(input_file) as f:
+        measurements = [l.strip() for l in f.readlines()]
+        if to_int:
+            measurements = [int(m) for m in measurements]
+        if single_value:
+            return measurements[0]
+    return measurements
+
 
 # Part 1
 # All paths from start to end. Big caves (CAPS) can be visited more than once, small caves only once.
